@@ -3,6 +3,7 @@
 const path = require('path')
 const local = require('./lib/robot-local')
 const parse = require('./lib/robot-parse-rss')
+const mail = require('./lib/robot-mail')
 
 const tmp_db_path = path.resolve(__dirname, '../db/rss');
 const origin_file = path.resolve(__dirname, '../db/rss/origin');
@@ -53,6 +54,8 @@ function start () {
   done.then(() => {
     console.log('done....')
     merger()
+    send_mail();
+    
   })
   
   function merger() {
@@ -61,6 +64,14 @@ function start () {
       console.log(`origin_file: ${origin_file}`);
       local.diff(origin_file, path.resolve(tmp_db_path, String(i)));
     }
+  }
+
+  function send_mail() {
+    var str = local.read(origin_file);
+    var json = JSON.parse(str)
+    mail(json);
+    console.log('send mail success .....')
+    console.log('=============================');
   }
 
 }
