@@ -4,8 +4,9 @@ const path = require('path')
 const local = require('./lib/robot-local')
 const parse = require('./lib/robot-parse-rss')
 
-const tmp_db_path = '../db/rss';
-const origin_file = '../db/rss/origin'
+const tmp_db_path = path.resolve(__dirname, '../db/rss');
+const origin_file = path.resolve(__dirname, '../db/rss/origin');
+
 var done_cont = 0;
 
 // 要抓取那些网站
