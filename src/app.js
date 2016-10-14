@@ -13,7 +13,15 @@ var done_cont = 0;
 // 要抓取那些网站
 const targetSites = [
   'http://www.ruanyifeng.com/blog/atom.xml',
-  'http://javascriptweekly.com/rss/1gh8b434'
+  'http://javascriptweekly.com/rss/1gh8b434',
+  'http://feeds.gracecode.com/gracecode/',
+  'https://hacks.mozilla.org/feed/',
+  'http://www.infoq.com/cn/feed',
+  'https://cnodejs.org/rss',
+  'http://fex.baidu.com/feed.xml',
+  'https://www.smashingmagazine.com/feed/',
+  'http://feed.cnblogs.com/blog/u/90635/rss',
+  'http://gold.xitu.io/rss'
 ]
 
 
@@ -51,7 +59,7 @@ function start () {
   })
   
   done.then(() => {
-    console.log('done....')
+    console.log('all file load success. ')
     merger()
     send_mail();
     
@@ -61,11 +69,14 @@ function start () {
     for (var i = 0; i < done_cont; i++) {
       local.diff(origin_file, path.resolve(tmp_db_path, String(i)));
     }
+
+    console.log('all file merger succcess.')
   }
 
   function send_mail() {
     var str = local.read(origin_file);
     var json = JSON.parse(str)
+    console.log(`start send mail, json.length: ${json.length}`)
     mail(json).then(str => {
 
       console.log('send mail success .....')

@@ -24,13 +24,10 @@ function _read(filename) {
 }
 
 function _diff(originfile, addfile) {
-  console.log(`originfile: ${originfile}`)
   var origin = getTitle(originfile)
   var add = getObj(addfile)
 
   var newArr = [];
-
-
   add.forEach(item => {
     if (origin.indexOf(item.title) < 0) {
       newArr.push(item)
@@ -38,6 +35,7 @@ function _diff(originfile, addfile) {
   })
 
   _save(originfile, JSON.stringify(getObj(originfile).concat(newArr)));
+  console.log(`diff originfile and ${addfile} success ....`)
 
 
   function getObj(filename) {
