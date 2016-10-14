@@ -23,7 +23,6 @@ function start () {
   targetSites.forEach((item, index) => {
 
     const mpath = path.resolve(tmp_db_path, String(index));
-    console.log(mpath)
     parse(item).then(out => {
       local.save(mpath, out);
       done_cont++;
@@ -60,8 +59,6 @@ function start () {
   
   function merger() {
     for (var i = 0; i < done_cont; i++) {
-      console.log(`tmp_db_path: ${path.resolve(tmp_db_path, String(i))}`);
-      console.log(`origin_file: ${origin_file}`);
       local.diff(origin_file, path.resolve(tmp_db_path, String(i)));
     }
   }
@@ -69,9 +66,13 @@ function start () {
   function send_mail() {
     var str = local.read(origin_file);
     var json = JSON.parse(str)
-    mail(json);
-    console.log('send mail success .....')
-    console.log('=============================');
+    mail(json).then(str => {
+
+      console.log('send mail success .....')
+    }).catch(err => {
+
+      console.log(err)
+    });
   }
 
 }
