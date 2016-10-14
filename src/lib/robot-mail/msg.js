@@ -3,7 +3,7 @@ module.exports = (function () {
   'use strict';
 
   var spawn = require('child_process').spawn
-  	, bash = process.cwd() + '/uniform_msg_client';
+  	, bash = __dirname + '/uniform_msg_client';
 
 
   /**

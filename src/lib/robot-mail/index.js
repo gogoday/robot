@@ -12,7 +12,7 @@ module.exports.mail = (json) => {
 
   const d = new Date();
   const from = 'g_DBASIC_APP_PRD_Int_vid';
-  const title = `【互动视频知识weekly】- ' + ${util.format('%s-%s-%s', d.getFullYear(), d.getMonth()+1, d.getDate())}`;
+  const title = `【互动视频知识weekly】- ${util.format('%s-%s-%s', d.getFullYear(), d.getMonth()+1, d.getDate())}`;
   const to = 'sampsonwang;';
   const html;
 
@@ -27,7 +27,7 @@ module.exports.mail = (json) => {
         reject(err)
       }
 
-      msg.mail(from, title, html, to);
+      msg.mail(from, title, str, to);
       resolve(str)
     })
   })
