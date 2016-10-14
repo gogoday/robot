@@ -77,7 +77,7 @@ function start () {
     var str = local.read(origin_file);
     var json = JSON.parse(str)
     console.log(`start send mail, json.length: ${json.length}`)
-    mail(json).then(str => {
+    mail.mail(json).then(str => {
 
       console.log('send mail success .....')
     }).catch(err => {
