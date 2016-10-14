@@ -31,7 +31,7 @@ function start () {
   targetSites.forEach((item, index) => {
 
     const mpath = path.resolve(tmp_db_path, String(index));
-    parse(item).then(out => {
+    parse(item, index).then(out => {
       local.save(mpath, out);
       done_cont++;
     }).catch(err => {

@@ -13,7 +13,7 @@ module.exports = getValueFromUrl;
 
 
 // title, desc, url, time, author
-function getValueFromUrl(url, type, key) {
+function getValueFromUrl(url, index) {
   
   return new Promise((resolve, reject) => {
 
@@ -25,7 +25,7 @@ function getValueFromUrl(url, type, key) {
         console.log(err);
         reject(err);
       } else {
-        console.log(`rss.length: ${rss.length}`);
+        console.log(`rss.length: ${rss.length}, url: ${url}, index: ${index}`);
         var out = [];
 
         rss.forEach(item => {
