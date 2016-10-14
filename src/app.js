@@ -25,6 +25,8 @@ function start () {
     parse(item).then(out => {
       local.save(mpath, out);
       done_cont++;
+    }).catch(err => {
+      console.log(err)
     })
 
 
