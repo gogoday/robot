@@ -8,14 +8,14 @@ const mail = require('./lib/robot-mail')
 const tmp_db_path = path.resolve(__dirname, '../db/rss');
 const origin_file = path.resolve(__dirname, '../db/rss/origin');
 
-var done_cont = 0;
+var done_arr = [];
 
 // 要抓取那些网站
 const targetSites = [
   'http://www.ruanyifeng.com/blog/atom.xml',
-  'http://javascriptweekly.com/rss/1gh8b434',
-  'http://feeds.gracecode.com/gracecode/',
-  'https://hacks.mozilla.org/feed/',
+  // 'http://javascriptweekly.com/rss/1gh8b434',
+  // 'http://feeds.gracecode.com/gracecode/',
+  // 'https://hacks.mozilla.org/feed/',
   'http://www.infoq.com/cn/feed',
   'https://cnodejs.org/rss',
   'http://fex.baidu.com/feed.xml',
@@ -33,7 +33,7 @@ function start () {
     const mpath = path.resolve(tmp_db_path, String(index));
     parse(item, index).then(out => {
       local.save(mpath, out);
-      done_cont++;
+      done_arr.push(index);
     }).catch(err => {
       console.log(err)
     })
@@ -47,7 +47,7 @@ function start () {
       resolve(true)
     }, 60e3)
     var intervalue = setInterval(() => {
-      if (done_cont == targetSites.length) {
+      if (done_arr.length == targetSites.length) {
         resolve(true);
         _end();
       }
@@ -66,9 +66,9 @@ function start () {
   })
   
   function merger() {
-    for (var i = 0; i < done_cont; i++) {
-      local.diff(origin_file, path.resolve(tmp_db_path, String(i)));
-    }
+    done_arr.forEach(item => {
+      local.diff(origin_file, path.resolve(tmp_db_path, String(item)));
+    })
 
     console.log('all file merger succcess.')
   }

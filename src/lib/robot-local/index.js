@@ -20,7 +20,14 @@ function _save(filename, string) {
 }
 
 function _read(filename) {
-  return fs.readFileSync(filename, 'utf8');
+  var file;
+  try {
+    file = fs.readFileSync(filename, 'utf8');
+  } catch (err){
+    console.log(err)
+    file = false;
+  }
+  return file;
 }
 
 function _diff(originfile, addfile) {
