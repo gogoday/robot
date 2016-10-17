@@ -31,7 +31,7 @@ function getValueFromUrl(url, index) {
         rss.forEach(item => {
           out.push({
             title: item.title,
-            desc: item.description.replace(/<a.*<\/a>/g, ''),
+            desc: item.description ? item.description.replace(/<a.*<\/a>/g, '') : '',
             link: item.link
           })
         });
