@@ -28,7 +28,9 @@ const targetSites = [
 
 
 function start () {
+
   console.log('robot starting...');
+  console.log(new Date());
 
   targetSites.forEach((item, index) => {
 
