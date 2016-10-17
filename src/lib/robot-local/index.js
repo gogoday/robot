@@ -16,7 +16,11 @@ function _save(filename, string) {
     string = JSON.stringify(string);
   }
 
+  try {
   fs.writeFileSync(filename, string);
+  } catch (e) {
+    console.log(e);
+  }
 }
 
 function _read(filename) {

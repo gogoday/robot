@@ -7,15 +7,17 @@ const mail = require('./lib/robot-mail')
 
 const tmp_db_path = path.resolve(__dirname, '../db/rss');
 const origin_file = path.resolve(__dirname, '../db/rss/origin');
+const mail_file = path.resolve(__dirname, '../db/rss/mail_file.html');
 
 var done_arr = [];
 
 // 要抓取那些网站
 const targetSites = [
   'http://www.ruanyifeng.com/blog/atom.xml',
-  // 'http://javascriptweekly.com/rss/1gh8b434',
-  // 'http://feeds.gracecode.com/gracecode/',
-  // 'https://hacks.mozilla.org/feed/',
+  'http://geek.csdn.net/admin/news_service/rss',
+  'http://javascriptweekly.com/rss/1gh8b434',
+  'http://feeds.gracecode.com/gracecode/',
+  'https://hacks.mozilla.org/feed/',
   'http://www.infoq.com/cn/feed',
   'https://cnodejs.org/rss',
   'http://fex.baidu.com/feed.xml',
@@ -78,7 +80,7 @@ function start () {
     var json = JSON.parse(str)
     console.log(`start send mail, json.length: ${json.length}`)
     mail.mail(json).then(str => {
-
+      local.save(mail_file, str)
       console.log('send mail success .....')
     }).catch(err => {
 

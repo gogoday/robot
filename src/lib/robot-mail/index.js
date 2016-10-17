@@ -11,9 +11,9 @@ const tpl = path.resolve(__dirname, 'tpl/index.ejs');
 module.exports.mail = (json) => {
 
   const d = new Date();
-  const from = 'g_DBASIC_APP_PRD_Int_vid';
+  const to = 'herbertliu;adamhe;evanjyu;fishineyuan;kevinyyang;kurtshen;lindazhu;linjianghe;linkzhu;lowenshi;sampsonwang;vienwu;willliang;zhuoyingmo;'
   const title = `【互动视频知识weekly】- ${util.format('%s-%s-%s', d.getFullYear(), d.getMonth()+1, d.getDate())}`;
-  const to = 'sampsonwang;';
+  const cc = '';
   const html;
 
   const _data = {
@@ -27,7 +27,7 @@ module.exports.mail = (json) => {
         reject(err)
       }
 
-      msg.mail(from, title, str, to);
+      msg.mail(to, title, str, cc);
       resolve(str)
     })
   })
